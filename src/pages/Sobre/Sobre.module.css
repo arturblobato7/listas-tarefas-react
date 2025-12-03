@@ -1,0 +1,140 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 3rem;
+  font-size: 3rem;
+}
+
+.content {
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section h2 {
+  color: #334155;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.section p {
+  color: #475569;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.techCard {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #3b82f6;
+}
+
+.techCard h3 {
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.techCard p {
+  color: #64748b;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+}
+
+.featuresList li {
+  padding: 1rem 0;
+  padding-left: 2rem;
+  position: relative;
+  color: #475569;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.featuresList li:last-child {
+  border-bottom: none;
+}
+
+.featuresList li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.requirements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.requirement {
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .techGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .requirements {
+    justify-content: center;
+  }
+  
+  .requirement {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
