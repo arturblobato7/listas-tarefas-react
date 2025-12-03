@@ -2,101 +2,58 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './NovaTarefa.module.css';
 
+const STORAGE_KEY = 'tarefas';
+
 const NovaTarefa = () => {
   const navigate = useNavigate();
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [erro, setErro] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErro('');
 
-    
-    if (!titulo.trim()) {
-      setErro('Por favor, insira um título para a tarefa');
-      return;
-    }
-
-    if (titulo.length > 100) {
-      setErro('O título deve ter no máximo 100 caracteres');
-      return;
-    }
-
-    
     const novaTarefa = {
       id: Date.now(),
-      titulo: titulo.trim(),
-      descricao: descricao.trim(),
+      titulo,
+      descricao,
       concluida: false,
-      dataCriacao: new Date().toLocaleDateString()
+      dataCriacao: new Date().toLocaleString(),
     };
 
-    
-    const tarefasExistentes = JSON.parse(localStorage.getItem('tarefas')) || [];
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const tarefas = raw ? JSON.parse(raw) : [];
 
-    
-    const tarefasAtualizadas = [...tarefasExistentes, novaTarefa];
+    tarefas.push(novaTarefa);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tarefas));
 
-    
-    localStorage.setItem('tarefas', JSON.stringify(tarefasAtualizadas));
-
-    
-    alert('✅ Tarefa adicionada com sucesso!');
-
-    
-    setTitulo('');
-    setDescricao('');
-
-    
     navigate('/tarefas');
   };
 
   return (
     <div className={styles.container}>
-      <h1>Adicionar Nova Tarefa</h1>
+      <h1>Nova Tarefa</h1>
 
       <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGroup}>
-          <label htmlFor="titulo">Título *</label>
+        <label>
+          Título
           <input
-            id="titulo"
-            type="text"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
-            placeholder="Digite o título da tarefa"
-            maxLength={100}
-            className={erro ? styles.inputError : ''}
+            required
           />
-          <div className={styles.charCount}>
-            {titulo.length}/100 caracteres
-          </div>
-        </div>
+        </label>
 
-        <div className={styles.formGroup}>
-          <label htmlFor="descricao">Descrição</label>
+        <label>
+          Descrição (opcional)
           <textarea
-            id="descricao"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
-            placeholder="Digite a descrição da tarefa (opcional)"
-            rows="5"
-            maxLength={500}
           />
-          <div className={styles.charCount}>
-            {descricao.length}/500 caracteres
-          </div>
-        </div>
+        </label>
 
-        {erro && (
-          <div className={styles.errorMessage}>
-            ⚠️ {erro}
-          </div>
-        )}
-
-        <div className={styles.buttons}>
-          <button type="submit" className={styles.submitBtn}>
-            ➕ Adicionar Tarefa
+        <div className={styles.actions}>
+          <button type="submit" className={styles.saveBtn}>
+            Salvar Tarefa
           </button>
 
           <button
@@ -104,7 +61,7 @@ const NovaTarefa = () => {
             className={styles.cancelBtn}
             onClick={() => navigate('/tarefas')}
           >
-            ↩️ Voltar para Tarefas
+            Voltar para Tarefas
           </button>
         </div>
       </form>
